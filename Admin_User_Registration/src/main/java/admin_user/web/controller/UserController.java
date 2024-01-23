@@ -31,9 +31,6 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	@Autowired
-    VoitureService voitureService;
-
 	
 	@GetMapping("/registration")
 	public String getRegistrationPage(@ModelAttribute("user") UserDto userDto) {
@@ -69,76 +66,5 @@ public class UserController {
 		return "admin";
 	}
 
-	@GetMapping("/users")
-    public String getAllUsers(Model model) {
-        model.addAttribute("users", this.userService.getAllUsers());
-        return "users"; 
-    }
-
-	//create
-	@GetMapping("/users/create")
-	public String showAddUser(Model model){
-		model.addAttribute("userDto", new UserDto());
-		return "createUser";
-	}
-   
-	@PostMapping("/users/create")
-	public String createUser(@ModelAttribute("userDto")@Validated UserDto userDto, BindingResult bindingResult) {
-		if(bindingResult.hasErrors()){
-			return "createUser";
-		}
-		User user = new User();
-		
-		user.setFullname(userDto.getFullname());
-		user.setEmail(userDto.getEmail());
-		user.setPassword(userDto.getPassword());
-		user.setRole(userDto.getRole());
-		userService.addUser(user);
-		return "redirect:/users";
-	}
-    @PostMapping("/users/{id}/delete")
-    public String deleteUser(@PathVariable("id")Long id){
-         Optional<User> user = userService.getUser(id);
-         if(!user.isPresent()){
-            
-         }
-		this.userService.deleteUser(id);
-        return "redirect:/users";
-    }
-
-	//update
-	@GetMapping("/users/{id}/edit")
-	public String showEditUser(@PathVariable("id")Long id, Model model){
-		Optional<User> user = userService.getUser(id);
-		if(user==null){ 
-	   }
-	   UserDto userDto = new UserDto(
-	   user.get().getFullname(),
-	   user.get().getEmail(),
-	   user.get().getPassword(),
-	   user.get().getRole()
-	   );
-	   model.addAttribute("userDto", userDto);
-	   return "modifierUser";
-   }
-   @PostMapping("/users/{id}/edit")
-   public String editUser(@PathVariable("id")Long id, @ModelAttribute("productForm")@Validated UserDto userDto, BindingResult bindingResult){
-	   if(bindingResult.hasErrors()) {
-		   return "modifierUser";
-	   }
-
-	   Optional<User> user = userService.getUser(id);
-		  
-			   if(user.isPresent()){
-				user.get().setFullname(userDto.getFullname());
-				user.get().setEmail(userDto.getEmail());
-				user.get().setPassword(userDto.getPassword());
-				user.get().setRole(userDto.getRole());
-				
-			   }
-		userService.updateUser(user.get());
-	   return "redirect:/users";
-   }
-
-  
+	
 }
