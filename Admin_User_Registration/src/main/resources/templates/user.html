@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<title>location des voitures</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+</head>
+<body>
+	<!-- create navigation bar ( header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed"
+					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+					aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span> <span
+						class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" th:href="@{/voitures}">Gestion des voitures</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<br>
+	<br>
+
+	<div class="container">
+		<h1>Welcome <span sec:authentication="principal.Fullname"> User</span></h1>
+	</div>
+  <<div class="container">
+    <h1>Cars List</h1>
+  </br>
+    <table class="table">
+      <thead class="thead-dark">
+      <tr>
+        <th class="active">Immatriculation</th>
+        <th class="active">Marque</th>
+        <th class="active"> Date Circulation</th>
+        <th class="active">Disponibility</th>
+        <th class="active">Price</th>
+        <th class="active">Image</th>
+      
+      </tr>
+    </thead>
+        <!-- sta3mlna list products li nafesha sta3mlneha fel controller-->
+      <tr class="text" th:each="voiture :${voitures}">
+        <div class="d-flex align-items-center">
+        <td class="fw-bold mb-1" th:text="${voiture.immatriculation}"></td>
+        <td class="fw-bold mb-1" th:text="${voiture.marque}"></td>
+        <!--<td class="fw-bold mb-1" th:text="${voiture.dateCirculation}"></td>-->
+        <td th:text="${#dates.format(voiture.dateCirculation, 'dd-MM-yyyy HH:mm:ss')}"></td>
+        <td class="fw-bold mb-1" th:text="${voiture.dispo}"></td>
+        <td class="fw-bold mb-1" th:text="${voiture.price}"></td>
+        
+        <td>
+          <img th:if="${voiture.image}" th:src="@{|/image/${voiture.image}|}" width="50px" height="50px">
+          <img th:unless="${voiture.image}" th:src="@{/image/no-image.png}" width="50px" height="50px">
+      </td>
+       <!-- <td>
+          <form th:action="@{|/voitures/${voiture.id}/edit|}" method="get" class="edit-form">
+            <button type="submit">Modifier</button>
+          </form>
+        </br>
+          <form th:action="@{|/voitures/${voiture.id}/delete|}" method="post" class="delete-form">
+            <button type="submit" >Supprimer</button>
+          </form>
+        </td>-->
+      </tr>
+    </table>
+ <!-- <a th:href="@{/voitures/create}" class="btn  btn-primary">Ajouter Voiture</a>-->
+  </form>
+  </div>
+  </div>
+  </body>
+  </html>
+

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<title>location des voitures</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+</head>
+<body>
+    	<!-- create navigation bar ( header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" th:href="@{/locations}">location des voitures</a>
+                <a class="navbar-brand" th:href="@{/voitures}">Gestion des voitures</a>
+                <a class="navbar-brand" th:href="@{/users}">Gestion des utilisateurs</a>
+			</div>
+		</div>
+	</nav>
+	<br>
+	<br>
+</div>
+<div class="container">
+    <h1>Nouvelle utilisateur</h1>
+    <form th:action="@{/users/create}" th:object="${userDto}" method="post" class="form-horizontal">
+        <div>
+            <label for="fullname">Nom Complet:</label>
+            <input type="text" id="fullname" name="fullname" th:field="*{fullname}">
+            <span th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}" class="error"></span>
+        </div>
+        <div>
+            <label for="email">E-mail:</label>
+            <input type="text" id="email" name="email" th:field="*{email}">
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error"></span>
+        </div>
+
+        <div>
+            <label for="password">Mot de pass:</label>
+            <input type="text" id="password" name="password" th:field="*{password}">
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error"></span>
+        </div>
+        <div>
+            <label for="role">Role:</label>
+            <input type="text" id="role" name="role" th:field="*{role}">
+            <span th:if="${#fields.hasErrors('role')}" th:errors="*{role}" class="error"></span>
+        </div>
+        
+        <div>
+            <button type="submit">Create</button>
+        </div>
+    </form>
+</body>
+
+</html>
+        <!--<table>
+            <tr>
+                <td><label for="" class="col-xs-3 control-label">Nom Complet</label></td>
+                <td><input type="text" th:field="*{fullname}" /></td>
+               <td th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}">fullname Error</td>
+            </tr>
+            <tr>
+                <td><label for="" class="col-xs-3 control-label">E-mail</label></td>
+                <td><input type="text" th:field="*{email}" /></td>
+               <td th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error</td> 
+            </tr>
+            <tr>
+                <td><label for="" class="col-xs-3 control-label">Mot de pass</label></td>
+                <td><input type="text" th:field="*{password}" /></td>
+                <td th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</td>
+            </tr>
+            <tr>
+                <td><label for="" class="col-xs-3 control-label">Role</label></td>
+                <td><input type="text" th:field="*{role}" /></td>
+                <td th:if="${#fields.hasErrors('role')}" th:errors="*{role}">role Error</td>
+                
+            </tr>
+            <tr>
+                <button type="submit" class="btn  btn-primary">Create</button>
+                
+            </tr>
+        </table>
+   
+    </form>
+</body>
+</div>
+</html>-->

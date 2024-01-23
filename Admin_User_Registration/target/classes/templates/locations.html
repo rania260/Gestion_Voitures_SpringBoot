@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="ISO-8859-1">
+<title>location des voitures</title>
+
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+
+</head>
+<body>
+	<!-- create navigation bar ( header) -->
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+
+				<a class="navbar-brand" th:href="@{/locations}">location des voitures</a>
+                <a class="navbar-brand" th:href="@{/voitures}">Gestion des voitures</a>
+                <a class="navbar-brand" th:href="@{/users}">Gestion des utilisateurs</a>
+			</div>
+			<div id="navbar" class="collapse navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<br>
+	<br>
+</div>
+
+<div class="container">
+  <h1>Liste des voitures louer</h1>
+  <table class="table align-middle mb-0 bg-white">
+    <thead class="bg-light">
+    <tr>
+      <th>Date Début</th>
+      <th>Date Fin</th>
+      <th>Frais de location</th>
+      <th>Mode de paiement</th>
+      <th>Voiture</th>
+    </tr>
+  </thead>
+      <!-- sta3mlna list products li nafesha sta3mlneha fel controller-->
+    <tr class="text" th:each="location :${locations}">
+      <div class="d-flex align-items-center">
+      <td class="fw-bold mb-1" th:text="${location.dateDebut}"></td>
+      <td class="fw-bold mb-1" th:text="${location.dateFin}"></td>
+      <td class="fw-bold mb-1" th:text="${location.fraisLocation}"></td>
+      <td class="fw-bold mb-1" th:text="${location.modePaiement}"></td>
+      <td class="fw-bold mb-1" th:text="${location.voiture.id}"></td>
+   
+      <td>
+        <form th:action="@{|/locations/${location.id}/edit|}" method="get" class="edit-form">
+          <button type="submit">Modifier</button>
+        </form>
+        <form th:action="@{|/locations/${location.id}/delete|}" method="post" class="delete-form">
+          <button type="submit">Supprimer</button>
+        </form>
+      </td>
+    </tr>
+  </table>
+<a th:href="@{/locations/create}" class="add-button">Ajouter Opreation</a>
+<a th:href="@{/voitures}" class="add-button">List Voitures</a>
+
+</form>
+</div>
+</div>
+</body>
+</html>
