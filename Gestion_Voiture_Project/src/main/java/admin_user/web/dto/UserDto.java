@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class UserDto {
-	//sprivate Long id;
+	//private Long id;
 	private String email;
 	private String password;
 	private String role;
